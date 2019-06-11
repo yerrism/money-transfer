@@ -20,7 +20,7 @@ public class AccountDetailsService {
 	@Autowired
 	private AccountDao accountDao;
 
-	@Transactional(isolation=Isolation.READ_COMMITTED,propagation=Propagation.REQUIRED)
+	@Transactional(readOnly = true)
 	public Account retrieveAccountDetails(String accountNumber) throws AccountNotFoundException {
 		Account account = accountDao.retrieveAccountByNumber(accountNumber);
 		if (account ==null) {

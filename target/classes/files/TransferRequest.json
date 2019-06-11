@@ -1,0 +1,8 @@
+{
+	"fromAccount" : "11111111",
+	"toAccount" : "22222222",
+	"creditor" : "GRECO CONCETTA",
+	"debtor" : "MARRA GERARDO",
+	"amount" : 25.0,
+	"currency" : "GBP"
+}

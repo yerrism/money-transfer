@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.monese.marra.transfer.exception.AccountNotFoundException;
 import com.monese.marra.transfer.exception.InsufficientFundsException;
 import com.monese.marra.transfer.model.TransferRequest;
 import com.monese.marra.transfer.service.MoneyTransferService;
@@ -28,7 +29,7 @@ public class MoneyTransferController {
 	
 	@PostMapping(value = "/moneyTransfer", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE},
 			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<? extends Object> executeMoneyTransfer(@RequestBody String moneyTransferDetails) throws JsonParseException, JsonMappingException, IOException, InsufficientFundsException{
+	public ResponseEntity<? extends Object> executeMoneyTransfer(@RequestBody String moneyTransferDetails) throws JsonParseException, JsonMappingException, IOException, InsufficientFundsException, AccountNotFoundException{
 		ObjectMapper mapper = new ObjectMapper();
 		TransferRequest tr = null;
 		tr = mapper.readValue(moneyTransferDetails, TransferRequest.class);

@@ -42,11 +42,7 @@ public class InsufficientFundsTest extends WebMVCTest{
 
 		//perform 1000 GBP transfer between 11111111 and 22222222
 		this.mockMvc.perform(post(MONEY_TRANSFER_CONTEXT_PATH).
-				contentType(MediaType.APPLICATION_JSON_UTF8).content(this.jsonForMoneyTransfer));
-		
-			
-		
-		
+				contentType(MediaType.APPLICATION_JSON_UTF8).content(this.jsonForMoneyTransfer));		
 		
 	}
 

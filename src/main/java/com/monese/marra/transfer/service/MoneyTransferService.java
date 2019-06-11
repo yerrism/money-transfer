@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.monese.marra.transfer.dao.AccountDao;
 import com.monese.marra.transfer.dao.TransactionDao;
+import com.monese.marra.transfer.exception.AccountNotFoundException;
 import com.monese.marra.transfer.exception.InsufficientFundsException;
 import com.monese.marra.transfer.model.Account;
 import com.monese.marra.transfer.model.Transaction;
@@ -28,15 +29,21 @@ public class MoneyTransferService {
 	
 	
 	@Transactional(propagation=Propagation.REQUIRES_NEW)
-	public void performMoneyTransfer(TransferRequest tr) throws InsufficientFundsException {
+	public void performMoneyTransfer(TransferRequest tr) throws InsufficientFundsException, AccountNotFoundException {
 		Map<String,Account> accounts = retrieveAccounts(tr);
 		updateAccounts(accounts,tr);
 	}
 
 	@Transactional(isolation=Isolation.READ_COMMITTED,propagation=Propagation.REQUIRED)
-	private void updateAccounts(Map<String,Account> accounts, TransferRequest tr) throws InsufficientFundsException {
+	private void updateAccounts(Map<String,Account> accounts, TransferRequest tr) throws InsufficientFundsException, AccountNotFoundException {
 		Account fromAccount = accounts.get("from");
 		Account toAccount = accounts.get("to");
+		if (fromAccount == null) {
+			throw new AccountNotFoundException("Account "+ tr.getFromAccount()+ " not found");
+		}
+		if (toAccount == null) {
+			throw new AccountNotFoundException("Account "+ tr.getToAccount()+ " not found");
+		}
 		if (fromAccount.getBalance()< tr.getAmount()) {
 			throw new InsufficientFundsException("Account "+ fromAccount.getAccNumber()+" has insufficient funds for the operation");		
 		}

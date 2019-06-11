@@ -30,6 +30,7 @@ public class AccountNotFoundTest extends WebMVCTest{
 	
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
+	
 	@Test
 	public void accountNotFoundTest() throws Exception{
 			    

@@ -8,6 +8,7 @@ public class TransferRequestBuilder {
 	private TransferRequest transferRequest;
 	
 	private TransferRequestBuilder(String fromAccount, String toAccount, String creditor, String debtor, Double amount) {
+		transferRequest = new TransferRequest();
 		transferRequest.setAmount(amount);
 		transferRequest.setCreditor(creditor);
 		transferRequest.setCurrency("GBP");

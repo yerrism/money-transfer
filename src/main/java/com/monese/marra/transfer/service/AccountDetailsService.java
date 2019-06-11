@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.monese.marra.transfer.dao.AccountDao;
+import com.monese.marra.transfer.exception.AccountNotFoundException;
 import com.monese.marra.transfer.model.Account;
 import com.monese.marra.transfer.model.Transaction;
 
@@ -20,8 +21,11 @@ public class AccountDetailsService {
 	private AccountDao accountDao;
 
 	@Transactional(isolation=Isolation.READ_COMMITTED,propagation=Propagation.REQUIRED)
-	public Account retrieveAccountDetails(String accountNumber) {
+	public Account retrieveAccountDetails(String accountNumber) throws AccountNotFoundException {
 		Account account = accountDao.retrieveAccountByNumber(accountNumber);
+		if (account ==null) {
+			throw new AccountNotFoundException("account "+ accountNumber+" not found");
+		}
 		List<Transaction> txns = account.getTransactions();
 		System.out.println("Retrieved "+ txns.size()+ "transactions");
 		return account;

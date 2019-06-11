@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.monese.marra.transfer.exception.AccountNotFoundException;
 import com.monese.marra.transfer.model.Account;
 import com.monese.marra.transfer.service.AccountDetailsService;
 
@@ -19,7 +20,7 @@ public class AccountDetailsController {
 	
 	@GetMapping(value = "/accountDetails",
 			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<? extends Object> executeMoneyTransfer(@RequestParam String accountNumber) {
+	public ResponseEntity<? extends Object> executeMoneyTransfer(@RequestParam String accountNumber) throws AccountNotFoundException {
 		
 		Account account = accountDetailsService.retrieveAccountDetails(accountNumber);
 		

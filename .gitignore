@@ -1,0 +1,10 @@
+*.class
+*.log
+logs/
+log/
+*.ctxt
+.mtj.tmp/
+target/*.jar
+*.war
+*.ear
+target/
